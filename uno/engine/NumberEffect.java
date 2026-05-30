@@ -1,0 +1,16 @@
+package uno.engine;
+
+import uno.api.*;
+
+public class NumberEffect implements CardEffect {
+
+	/**
+	 * 
+	 * @param ctx
+	 */
+	public void execute(GameContext ctx) {
+		// TODO - implement NumberEffect.execute
+		throw new UnsupportedOperationException();
+	}
+
+}
