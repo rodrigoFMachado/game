@@ -1,16 +1,22 @@
 package uno.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Hand {
 
 	private List<Card> cards;
+	
+	public Hand() {
+		this.cards = new ArrayList<>();
+	}
 
 	/**
 	 * 
 	 * @param c
 	 */
 	public void addCard(Card c) {
-		// TODO - implement Hand.addCard
-		throw new UnsupportedOperationException();
+		this.cards.add(c);
 	}
 
 	/**
@@ -18,8 +24,7 @@ public class Hand {
 	 * @param index
 	 */
 	public Card removeCard(int index) {
-		// TODO - implement Hand.removeCard
-		throw new UnsupportedOperationException();
+		return this.cards.remove(index);
 	}
 
 	/**
@@ -27,8 +32,10 @@ public class Hand {
 	 * @param index
 	 */
 	public Card getCard(int index) {
-		// TODO - implement Hand.getCard
-		throw new UnsupportedOperationException();
+		return this.cards.get(index);
 	}
 
+	public int getSize() {
+		return this.cards.size();
+	}
 }

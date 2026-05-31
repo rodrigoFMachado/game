@@ -1,12 +1,22 @@
 package uno.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Deck {
 
 	private List<Card> cards;
 
+	public Deck() {
+		this.cards = new ArrayList<>();
+	}
+
 	public Card drawTop() {
-		// TODO - implement Deck.drawTop
-		throw new UnsupportedOperationException();
+		if (this.cards.isEmpty()) {
+			return null;
+		}
+		// Remove and return the last card in the list
+		return this.cards.remove(this.cards.size() - 1);
 	}
 
 	/**
@@ -14,8 +24,11 @@ public class Deck {
 	 * @param c
 	 */
 	public void addTop(Card c) {
-		// TODO - implement Deck.addTop
-		throw new UnsupportedOperationException();
+		this.cards.add(c);
+	}
+
+	public boolean isEmpty() {
+		return this.cards.isEmpty();
 	}
 
 }
