@@ -5,12 +5,11 @@ import uno.api.*;
 public class SkipEffect implements CardEffect {
 
 	/**
-	 * 
-	 * @param ctx
+	 * * @param ctx
 	 */
 	public void execute(GameContext ctx) {
-		// TODO - implement SkipEffect.execute
-		throw new UnsupportedOperationException();
+		// Tells the CPU to jump over the next person in the array
+		ctx.skipNextPlayer();
 	}
 
 }

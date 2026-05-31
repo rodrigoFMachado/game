@@ -5,12 +5,12 @@ import uno.api.*;
 public class DrawTwoEffect implements CardEffect {
 
 	/**
-	 * 
-	 * @param ctx
+	 * * @param ctx
 	 */
 	public void execute(GameContext ctx) {
-		// TODO - implement DrawTwoEffect.execute
-		throw new UnsupportedOperationException();
+		// Standard UNO rules: Next player draws 2 cards AND loses their turn.
+		ctx.forceDraw(2);
+		ctx.skipNextPlayer();
 	}
 
 }

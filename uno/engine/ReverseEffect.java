@@ -5,12 +5,11 @@ import uno.api.*;
 public class ReverseEffect implements CardEffect {
 
 	/**
-	 * 
-	 * @param ctx
+	 * * @param ctx
 	 */
 	public void execute(GameContext ctx) {
-		// TODO - implement ReverseEffect.execute
-		throw new UnsupportedOperationException();
+		// Tells the CPU to flip the direction boolean
+		ctx.reverseDirection();
 	}
 
 }
