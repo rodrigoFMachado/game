@@ -98,7 +98,7 @@ public class DeckLoader {
      */
     public static void main(String[] args) {
         if (args.length != 1) {
-            System.err.println("Usage: java exampledeck.DeckLoader <deckFile>");
+            System.err.println("Usage: java uno.io.DeckLoader <deckFile>");
             System.exit(1);
         }
 

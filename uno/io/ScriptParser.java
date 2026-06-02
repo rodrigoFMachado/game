@@ -143,7 +143,7 @@ public class ScriptParser implements AutoCloseable {
      */
     public static void main(String[] args) {
         if (args.length != 1) {
-            System.err.println("Usage: java examplescript.ScriptParser <scriptFile>");
+            System.err.println("Usage: java uno.io.ScriptParser <scriptFile>");
             System.exit(1);
         }
 
