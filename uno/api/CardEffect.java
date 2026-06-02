@@ -1,6 +1,6 @@
 package uno.api;
 
-import uno.engine.*;
+import uno.engine.GameContext;
 
 public interface CardEffect {
 
@@ -8,6 +8,5 @@ public interface CardEffect {
 	 * 
 	 * @param ctx
 	 */
-	void execute(GameContext ctx);
-
+    void execute(GameContext ctx);
 }

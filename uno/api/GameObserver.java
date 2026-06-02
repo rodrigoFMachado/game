@@ -6,6 +6,5 @@ public interface GameObserver {
 	 * 
 	 * @param message
 	 */
-	void logEvent(String message);
-
+    void logEvent(String message);
 }

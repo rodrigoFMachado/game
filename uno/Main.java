@@ -1,13 +1,15 @@
 package uno;
 
 import uno.io.DeckLoader;
+import uno.io.EventLogger;
+import uno.engine.GameContext;
 import uno.model.Deck;
 import java.io.FileReader;
 import java.io.Reader;
 
 public class Main {
     public static void main(String[] args) {
-        // 1. Parse Command Line Arguments
+        // 1. Validação dos Argumentos da Linha de Comandos
         if (args.length < 3) {
             System.err.println("Usage: java uno.Main <deckFile> <scriptFile> <playerCount> [<cardsPerPlayer>]");
             System.exit(1);
@@ -16,25 +18,37 @@ public class Main {
         String deckFile = args[0];
         String scriptFile = args[1];
         int playerCount = Integer.parseInt(args[2]);
-        int cardsPerPlayer = (args.length >= 4) ? Integer.parseInt(args[3]) : 7; // Default is 7
+        int cardsPerPlayer = (args.length >= 4) ? Integer.parseInt(args[3]) : 7; // Default exigido é 7
 
-        // 2. Print Startup Header (PDF Requirement 1.4.1)
+        // 2. Cabeçalho Inicial Obrigatório (Requisito 1.4.1 do PDF)
         System.out.println("Running uno.Main with:");
         System.out.println("Deck file: " + deckFile);
         System.out.println("Script file: " + scriptFile);
         System.out.println("Nb players: " + playerCount);
         System.out.println("Nb cards per player: " + cardsPerPlayer);
 
-        // 3. Load the Deck into Memory
-        Deck loadedDeck = null;
-        try (Reader reader = new FileReader(deckFile)) {
+        try (Reader deckReader = new FileReader(deckFile)) {
+            
+            // 3. O leitor converte o texto do ficheiro para os objectos de Memória
             DeckLoader loader = new DeckLoader();
-            loadedDeck = loader.loadDeck(reader);
+            Deck loadedDeck = loader.loadDeck(deckReader);
+
+            // 4. Criar o CPU (GameContext) injetando o baralho carregado e o nº de jogadores
+            GameContext engine = new GameContext(playerCount, loadedDeck);
+
+            // 5. Ligar o monitor de saída (EventLogger) ao CPU
+            EventLogger logger = new EventLogger();
+            engine.addObserver(logger);
+
+            // 6. Iniciar a sequência de arranque (Distribuir cartas e virar a primeira)
+            engine.setupGame(cardsPerPlayer);
+            
+            // TODO: Na próxima fase, vamos abrir o scriptFile e passar os comandos para o engine aqui!
+
         } catch (Exception e) {
-            System.err.println("Error loading deck: " + e.getMessage());
+            System.err.println("Error: " + e.getMessage());
+            e.printStackTrace();
             System.exit(1);
         }
-
-        // TODO: Next we will boot the GameContext here using loadedDeck and playerCount
     }
 }
