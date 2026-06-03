@@ -78,6 +78,44 @@ public class GameContext {
         broadcast("EVENT TURN_START player=" + currentPlayerIndex);
     }
 
+
+
+
+
+    // Este método permite ao ScriptParser usar o barramento de output do CPU
+    public void logCommand(String message) {
+        broadcast(message);
+    }
+
+    // --- Os métodos originais do teu UML ---
+    public void playCard(int playerId, int cardIndex) {
+        if (playerId != currentPlayerIndex) {
+            throw new IllegalStateException("It's not player " + playerId + "'s turn.");
+        }
+        Player currentPlayer = players.get(currentPlayerIndex);
+
+        Card currentCard = currentPlayer.getHand().getCard(cardIndex);
+
+        if (currentCard.getRank() == Wild)
+
+
+            broadcast("PLAY_CARD Player playerid played Wild (color will be chosen)");
+
+        else if (currentCard.getColor() == currentColor || currentCard.getRank() == discardPile.getTop)
+            currentPlayerIndex++;
+            currentColor = currentCard.getColor();
+            discardPile.addTop(currentCard);
+
+    }
+
+    public void chooseColor(int playerId, String colorCode) {
+        // Lógica de escolher cor a implementar
+    }
+
+    public void advanceTurn() {
+        // Lógica de avançar turno a implementar
+    }
+
     // --- APIs para os Efeitos das Cartas usarem ---
     public void reverseDirection() {
         this.isClockwise = !this.isClockwise;
@@ -91,10 +129,7 @@ public class GameContext {
         // Por agora não faz nada
     }
 
-    // --- Os métodos originais do teu UML ---
-    public void playCard(int playerId, int cardIndex) {
-        // Vamos ligar isto ao ScriptParser na próxima fase
-    }
+
 
     public void drawCard(int playerId) {
         // Vamos ligar isto ao ScriptParser na próxima fase

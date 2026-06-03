@@ -36,25 +36,26 @@ public class ScriptParser implements AutoCloseable {
             try {
                 if ("PLAY".equalsIgnoreCase(cmd)) {
                     int idx = Integer.parseInt(parts[3]);
-                    engine.playCard(playerId, idx); // Envia para o CPU
+                    engine.playCard(playerId, idx); // O engine trata da jogada E do output!
 
                 } else if ("DRAW".equalsIgnoreCase(cmd)) {
-                    engine.drawCard(playerId); // Envia para o CPU
+                    engine.drawCard(playerId); 
 
                 } else if ("COLOR".equalsIgnoreCase(cmd)) {
                     String colorCode = parts[3];
-                    engine.chooseColor(playerId, colorCode); // Envia para o CPU
+                    engine.chooseColor(playerId, colorCode); 
 
                 } else {
                     throw new IllegalArgumentException("Unknown command: " + cmd);
                 }
                 
-                // Se a jogada foi válida e não atirou erro, avança o turno
+                // Se a jogada foi válida e não atirou erro, o turno avança!
                 engine.advanceTurn();
                 
             } catch (Exception e) {
-                // Se o GameContext atirar um erro (InvalidMoveException), apanhamos aqui
+                // PDF 1.4.5: Imprimir o erro exato e terminar imediatamente!
                 engine.logCommand("EVENT ERROR " + e.getMessage());
+                System.exit(1); // 1 = Termina a execução com código de erro. O jogo morre aqui.
             }
         }
     }
