@@ -121,6 +121,8 @@ public class DeckLoader {
             case SKIP: return new SkipEffect();
             case REVERSE: return new ReverseEffect();
             case DRAW_TWO: return new DrawTwoEffect();
+            case WILD: return new WildEffect();
+            case WILD_DRAW_FOUR: return new WildDrawFourEffect();
             default: return new NumberEffect(); // Wilds and Numbers don't inherently shift turn order
         }
     }

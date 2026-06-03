@@ -210,7 +210,37 @@ public class GameContext {
         broadcast("EVENT TURN_ADVANCE Next player: " + currentPlayerIndex);
     }
 
+
+
     // --- APIs para os Efeitos das Cartas usarem ---
+    public void setColor() {
+        Player currentPlayer = players.get(currentPlayerIndex);
+
+        Card currentCard = currentPlayer.getHand().getCard(currentPlayerIndex);
+
+        this.currentColor = currentCard.getColor();
+    }
+
+
+    public void broadcastCardEffect() {
+        Player currentPlayer = players.get(currentPlayerIndex);
+
+        Card currentCard = currentPlayer.getHand().getCard(currentPlayerIndex);
+
+        String effectDescription = "EVENT PLAY_CARD Player " + currentPlayer.getId() + " played ";
+
+
+        switch (currentCard.getRank()) {
+            case Rank.SKIP: broadcast(effectDescription + "SKIP;"); break;
+            case Rank.REVERSE: broadcast(effectDescription + "REVERSE;"); break;
+            case Rank.DRAW_TWO: broadcast(effectDescription + "DRAW_TWO; Player" + currentPlayer.getId() + "draws 2 and is skipped"); break;
+            case Rank.WILD: broadcast(effectDescription + "WILD (color will be chosen)"); break;
+            case Rank.WILD_DRAW_FOUR: broadcast(effectDescription + "WILD_DRAW_FOUR; Player" + currentPlayer.getId() + "draws 4 and is skipped"); break;
+            default: broadcast(effectDescription + "(" + currentCard.getColor() + "-" + currentCard.getRank() + ")");
+        }
+    }
+
+
     public void reverseDirection() {
         this.isClockwise = !this.isClockwise;
 
