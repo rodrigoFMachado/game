@@ -20,7 +20,7 @@ public class Main {
         int playerCount = Integer.parseInt(args[2]);
         int cardsPerPlayer = (args.length >= 4) ? Integer.parseInt(args[3]) : 7; // Default exigido é 7
 
-        // 2. Cabeçalho Inicial Obrigatório (Requisito 1.4.1 do PDF)
+        // 2. Cabeçalho Inicial Obrigatório 
         System.out.println("Running uno.Main with:");
         System.out.println("Deck file: " + deckFile);
         System.out.println("Script file: " + scriptFile);
@@ -29,11 +29,11 @@ public class Main {
 
         try (Reader deckReader = new FileReader(deckFile)) {
             
-            // 3. O leitor converte o texto do ficheiro para os objectos de Memória
+            // 3. Constroi o deck a partir do ficheiro usando o DeckLoader
             DeckLoader loader = new DeckLoader();
             Deck loadedDeck = loader.loadDeck(deckReader);
 
-            // 4. Criar o CPU (GameContext) injetando o baralho carregado e o nº de jogadores
+            // 4. Chama construtor de game context com o deck carregado e o número de jogadores
             GameContext engine = new GameContext(playerCount, loadedDeck);
 
             // 5. Ligar o monitor de saída (EventLogger) ao CPU

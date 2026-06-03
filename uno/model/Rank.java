@@ -1,5 +1,8 @@
 package uno.model;
 
+/**
+ * Enum representing the rank of a card in Uno.
+ */
 public enum Rank {
 	ZERO,
 	ONE,

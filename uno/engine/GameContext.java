@@ -17,6 +17,11 @@ public class GameContext {
     // Lista de monitores ligados a este CPU
     private List<GameObserver> observers;
 
+    /**
+     * Creates a new GameContext with the specified number of players and the loaded deck.
+     * @param numPlayers the number of players
+     * @param loadedDeck the loaded deck
+     */
     public GameContext(int numPlayers, Deck loadedDeck) {
         this.players = new ArrayList<>();
         for (int i = 0; i < numPlayers; i++) {

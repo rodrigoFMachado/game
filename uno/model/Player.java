@@ -6,8 +6,8 @@ public class Player {
 	private Hand hand;
 
 	/**
-	 * 
-	 * @param id
+	 * Creates a new player with the specified ID.
+	 * @param id the player's ID
 	 */
 	public Player(int id) {
 		this.id = id;

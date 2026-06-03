@@ -4,9 +4,9 @@ import uno.engine.GameContext;
 
 public interface CardEffect {
 
-	/**
-	 * 
-	 * @param ctx
+	/** 
+	 * Executes the effect of the card.
+	 * @param ctx the game context
 	 */
     void execute(GameContext ctx);
 }

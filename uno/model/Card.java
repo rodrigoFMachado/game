@@ -10,10 +10,10 @@ public class Card {
 
 
 	/**
-	 * 
-	 * @param color
-	 * @param rank
-	 * @param effect
+	 * Creates a new card with the specified color, rank, and effect.
+	 * @param color the color of the card
+	 * @param rank the rank of the card
+	 * @param effect the effect of the card
 	 */
 	public Card(Color color, Rank rank, CardEffect effect) {
 		this.color = color;

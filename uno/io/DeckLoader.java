@@ -29,7 +29,7 @@ public class DeckLoader {
                 throw new IllegalArgumentException("Invalid deck line: " + line);
             }
 
-            // Translate text into Enums and Memory Objects
+            // Traduz de array "parts" para variáveis de tipo enum, declaradas em model
             Color color = parseColor(parts[0]);
             Rank rank = parseRank(parts[1]);
             CardEffect effect = assignEffect(rank);
@@ -37,10 +37,13 @@ public class DeckLoader {
             tempStorage.add(new Card(color, rank, effect));
         }
 
-        // Reverse the list so the first line of the file becomes the "top" (end) of the deck
+        // Reverse the list so the first line of the file becomes the last item in array
         Collections.reverse(tempStorage);
 
         Deck finalDeck = new Deck();
+
+        // Adiciona cartas do array para o topo do deck, comceçando pela primeira carta do array (agora última a ser lida), corrigindo a ordem
+
         for (Card c : tempStorage) {
             finalDeck.addTop(c);
         }
@@ -68,6 +71,12 @@ public class DeckLoader {
 
     // --- Translators ---
 
+
+    /**
+     * Traduz cores de letras para enum, usando enum definida em model
+     * @param c
+     * @return
+     */
     private Color parseColor(String c) {
         switch (c.toUpperCase()) {
             case "R": return Color.RED;
@@ -79,6 +88,12 @@ public class DeckLoader {
         }
     }
 
+
+    /**
+     * Traduz ranks de letras para enum, usando enum definida em model
+     * @param r
+     * @return
+     */
     private Rank parseRank(String r) {
         switch (r.toUpperCase()) {
             case "0": return Rank.ZERO;
