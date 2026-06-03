@@ -197,7 +197,17 @@ public class GameContext {
     }
 
     public void advanceTurn() {
-        // Lógica de avançar turno a implementar
+        if (isWaitingForColor) {
+            return;
+        }
+
+        if (isClockwise) {
+            currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+        } else {
+            currentPlayerIndex = (currentPlayerIndex - 1 + players.size()) % players.size();
+        }
+
+        broadcast("EVENT TURN_ADVANCE Next player: " + currentPlayerIndex);
     }
 
     // --- APIs para os Efeitos das Cartas usarem ---
@@ -206,11 +216,34 @@ public class GameContext {
     }
 
     public void skipNextPlayer() {
-        // Por agora não faz nada, vamos escrever a matemática dos turnos depois
+        if (isClockwise) {
+            currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+        } else {
+            currentPlayerIndex = (currentPlayerIndex - 1 + players.size()) % players.size();
+        }
     }
 
     public void forceDraw(int numCards) {
-        // Por agora não faz nada
+        int targetPlayerIndex;
+        if (isClockwise) {
+            targetPlayerIndex = (currentPlayerIndex + 1) % players.size();
+        } else {
+            targetPlayerIndex = (currentPlayerIndex - 1 + players.size()) % players.size();
+        }
+
+        Player targetPlayer = players.get(targetPlayerIndex);
+
+        for (int i = 0; i < numCards; i++) {
+            Card drawnCard = drawPile.drawTop();
+
+            if (drawnCard == null) {
+                broadcast("EVENT GAME_END No cards available to draw");
+                broadcast("GAME_END");
+                System.exit(0);
+            }
+
+            targetPlayer.getHand().addCard(drawnCard);
+        }
     }
 
 
