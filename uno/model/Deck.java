@@ -35,6 +35,18 @@ public class Deck {
 	}
 
 	/**
+	 * Peeks at the top card of the deck without removing it.
+	 * @return the top card, or null if the deck is empty
+	 */
+	public Card peekTop() {
+		if (this.cards.isEmpty()) {
+			return null;
+		}
+		// Apenas lê a última carta, não faz .remove()
+		return this.cards.get(this.cards.size() - 1);
+	}
+
+	/**
 	 * Checks if the deck is empty.
 	 * @return true if the deck is empty, false otherwise
 	 */

@@ -10,9 +10,10 @@ public class GameContext {
     private List<Player> players;
     private Deck drawPile;
     private Deck discardPile;
+    private Color currentColor;
     private int currentPlayerIndex;
     private boolean isClockwise;
-    private Color currentColor;
+    private boolean isWaitingForColor;
     
     // Lista de monitores ligados a este CPU
     private List<GameObserver> observers;
@@ -32,6 +33,7 @@ public class GameContext {
         this.discardPile = new Deck();
         this.currentPlayerIndex = 0;
         this.isClockwise = true;
+        this.isWaitingForColor = false;
         this.observers = new ArrayList<>();
     }
 
@@ -90,7 +92,7 @@ public class GameContext {
     public void playCard(int playerId, int cardIndex) {
         Player currentPlayer = players.get(currentPlayerIndex);
 
-        // 1. Validações de Erro Fatal (se algo falhar aqui, o programa vai parar)
+        // Validações de Erro Fatal
         if (playerId != currentPlayer.getId()) {
             throw new IllegalArgumentException("Not player " + playerId + " turn");
         }
@@ -99,11 +101,18 @@ public class GameContext {
             throw new IllegalArgumentException("Invalid card index " + cardIndex);
         }
 
+        if (isWaitingForColor == true) {
+            throw new IllegalArgumentException("Must choose a color before playing another card");
+        }
+
+
         // Ler a carta
         Card currentCard = currentPlayer.getHand().getCard(cardIndex);
 
-        // [DESAFIO PARA TI]: Fazer o IF para verificar se a jogada é ilegal (cor errada ou rank errado).
-        // Se for ilegal, deves fazer: throw new IllegalArgumentException("Card " + currentCard.getColor() + "-" + currentCard.getRank() + " is not playable");
+        // Move ilegal
+        if (currentCard.getColor() != this.currentColor && currentCard.getRank() != discardPile.peekTop().getRank() && currentCard.getColor() != Color.WILD) { 
+            throw new IllegalArgumentException("Card " + currentCard.getColor() + "-" + currentCard.getRank() + " is not playable");
+        }
 
         // 2. Executar a jogada fisicamente na memória
         currentPlayer.getHand().removeCard(cardIndex); // Tira a carta da mão
@@ -115,8 +124,7 @@ public class GameContext {
             // É um Wild. Não mudamos a cor ainda, só informamos.
             broadcast("EVENT PLAY_CARD Player " + playerId + " played " + currentCard.getRank() + " (color will be chosen)");
             
-            // DICA: Vais precisar de uma variável de classe (ex: private boolean isWaitingForColor)
-            // e metê-la a 'true' aqui, para bloqueares o advanceTurn() e o drawCard() até vir o comando COLOR.
+            isWaitingForColor = true;
             
         } else {
             // Carta normal. Atualizamos a cor da mesa para a cor da carta.
