@@ -117,7 +117,9 @@ public class GameContext {
         // 2. Executar a jogada fisicamente na memória
         currentPlayer.getHand().removeCard(cardIndex); // Tira a carta da mão
         discardPile.addTop(currentCard);               // Mete a carta na mesa
-        currentCard.getEffect().execute(this);         // O Chip de lógica executa os Skips/Reverses invisivelmente
+
+
+        currentCard.getEffect().execute(this);    // Chamado efeito da carta
         
         // 3. Atualizar o estado e imprimir o Output dependendo da carta
         if (currentCard.getRank() == Rank.WILD || currentCard.getRank() == Rank.WILD_DRAW_FOUR) {
@@ -134,7 +136,64 @@ public class GameContext {
     }
 
     public void chooseColor(int playerId, String colorCode) {
-        // Lógica de escolher cor a implementar
+        Player currentPlayer = players.get(currentPlayerIndex);
+
+        // 1. Validações do PDF
+        if (playerId != currentPlayer.getId()) {
+            throw new IllegalArgumentException("Only player " + currentPlayer.getId() + " can choose the color");
+        }
+
+        if (!isWaitingForColor) {
+            throw new IllegalArgumentException("Cannot choose color - no wild card was played");
+        }
+
+        // 2. Traduzir o "R" / "G" do script para o teu Enum e validar
+        Color newColor;
+        switch (colorCode.toUpperCase()) {
+            case "R": newColor = Color.RED; break;
+            case "Y": newColor = Color.YELLOW; break;
+            case "G": newColor = Color.GREEN; break;
+            case "B": newColor = Color.BLUE; break;
+            case "W": 
+                throw new IllegalArgumentException("Cannot choose WILD as a color");
+            default:
+                throw new IllegalArgumentException("Invalid color code");
+        }
+
+        // 3. Atualizar a memória
+        this.currentColor = newColor;
+        this.isWaitingForColor = false;
+
+        broadcast("EVENT CHOOSE_COLOR Player " + playerId + " chose color " + this.currentColor);
+    }
+
+
+    public void drawCard(int playerId) {
+        Player currentPlayer = players.get(currentPlayerIndex);
+
+        // 1. Validações
+        if (playerId != currentPlayer.getId()) {
+            throw new IllegalArgumentException("Not player " + playerId + " turn");
+        }
+        
+        if (isWaitingForColor) {
+            throw new IllegalArgumentException("Must choose a color before drawing");
+        }
+
+        // Logica de draw
+        Card drawnCard = drawPile.drawTop();
+        
+        // Se o baralho estiver vazio, o jogo acaba sem vencedor.
+        if (drawnCard == null) {
+            broadcast("EVENT GAME_END No cards available to draw");
+            broadcast("GAME END");
+            System.exit(0); 
+        }
+
+        // 3. Atualizar a memória e avisar o ecrã
+        currentPlayer.getHand().addCard(drawnCard);
+        
+        broadcast("EVENT DRAW_CARD Player " + playerId + " draws 1 card (" + drawnCard.getColor() + "-" + drawnCard.getRank() + ")");
     }
 
     public void advanceTurn() {
@@ -156,7 +215,5 @@ public class GameContext {
 
 
 
-    public void drawCard(int playerId) {
-        // Vamos ligar isto ao ScriptParser na próxima fase
-    }
+
 }
