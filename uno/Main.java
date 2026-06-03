@@ -4,6 +4,7 @@ import uno.io.DeckLoader;
 import uno.io.EventLogger;
 import uno.engine.GameContext;
 import uno.model.Deck;
+import uno.io.ScriptParser;
 import java.io.FileReader;
 import java.io.Reader;
 
@@ -43,7 +44,13 @@ public class Main {
             // 6. Iniciar a sequência de arranque (Distribuir cartas e virar a primeira)
             engine.setupGame(cardsPerPlayer);
             
-            // TODO: Na próxima fase, vamos abrir o scriptFile e passar os comandos para o engine aqui!
+            // 7. LER O SCRIPT E EXECUTAR AS JOGADAS AUTOMATICAMENTE
+            try (Reader scriptReader = new FileReader(scriptFile)) {
+                ScriptParser parser = new ScriptParser(scriptReader, engine);
+                parser.parseAll();
+            }
+
+            
 
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
