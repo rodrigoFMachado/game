@@ -8,8 +8,6 @@ public class ReverseEffect implements CardEffect {
 	 * * @param ctx
 	 */
 	public void execute(GameContext ctx) {
-		ctx.setColor();
-		ctx.broadcastCardEffect();
 		ctx.reverseDirection();
 	}
 

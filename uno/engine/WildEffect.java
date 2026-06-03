@@ -8,7 +8,6 @@ public class WildEffect implements CardEffect {
      * * @param ctx
      */
     public void execute(GameContext ctx) {
-        ctx.broadcastCardEffect();
         ctx.waitForColor();
     }
     

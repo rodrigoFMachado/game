@@ -92,19 +92,16 @@ public class GameContext {
     public void playCard(int playerId, int cardIndex) {
         Player currentPlayer = players.get(currentPlayerIndex);
 
-        // Validações de Erro Fatal
+        // 1. Validações de Erro Fatal
         if (playerId != currentPlayer.getId()) {
             throw new IllegalArgumentException("Not player " + playerId + " turn");
         }
-        
         if (cardIndex < 0 || cardIndex >= currentPlayer.getHand().getSize()) {
             throw new IllegalArgumentException("Invalid card index " + cardIndex);
         }
-
-        if (isWaitingForColor == true) {
+        if (isWaitingForColor) {
             throw new IllegalArgumentException("Must choose a color before playing another card");
         }
-
 
         // Ler a carta
         Card currentCard = currentPlayer.getHand().getCard(cardIndex);
@@ -114,12 +111,45 @@ public class GameContext {
             throw new IllegalArgumentException("Card " + currentCard.getColor() + "-" + currentCard.getRank() + " is not playable");
         }
 
-        // 2. Executar a jogada fisicamente na memória
-        currentPlayer.getHand().removeCard(cardIndex); // Tira a carta da mão
-        discardPile.addTop(currentCard);               // Mete a carta na mesa
+        // 2. Tira a carta da mão e mete na mesa
+        currentPlayer.getHand().removeCard(cardIndex); 
+        discardPile.addTop(currentCard);               
 
+        // 3. Output e Atualização de Cor (SEMPRE ANTES de executar o efeito, porque o efeito vai mexer nos índices do turno)
+        String baseLog = "EVENT PLAY_CARD Player " + playerId + " played ";
+        
+        // Esta fórmula é a mesma que usaste no teu forceDraw (descobre quem é a vítima do +2 ou +4)
+        int targetPlayerIndex = (currentPlayerIndex + (isClockwise ? 1 : -1) + players.size()) % players.size();
 
-        currentCard.getEffect().execute(this);    // Chamado efeito da carta
+        switch (currentCard.getRank()) {
+            case WILD:
+                broadcast(baseLog + "WILD (color will be chosen)");
+                this.isWaitingForColor = true;
+                break;
+            case WILD_DRAW_FOUR:
+                broadcast(baseLog + "WILD_DRAW_FOUR; Player " + targetPlayerIndex + " draws 4 and is skipped");
+                this.isWaitingForColor = true;
+                break;
+            case DRAW_TWO:
+                this.currentColor = currentCard.getColor();
+                broadcast(baseLog + "DRAW_TWO; Player " + targetPlayerIndex + " draws 2 and is skipped");
+                break;
+            case SKIP:
+                this.currentColor = currentCard.getColor();
+                broadcast(baseLog + "SKIP");
+                break;
+            case REVERSE:
+                this.currentColor = currentCard.getColor();
+                broadcast(baseLog + "REVERSE");
+                break;
+            default:
+                this.currentColor = currentCard.getColor();
+                broadcast(baseLog + currentCard.getColor() + "-" + currentCard.getRank());
+                break;
+        }
+
+        // 4. Executar o efeito da carta (Vai forçar compras e rodar os turnos conforme programaste)
+        currentCard.getEffect().execute(this);    
     }
 
     public void chooseColor(int playerId, String colorCode) {

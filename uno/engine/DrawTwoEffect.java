@@ -8,8 +8,6 @@ public class DrawTwoEffect implements CardEffect {
 	 * * @param ctx
 	 */
 	public void execute(GameContext ctx) {
-		ctx.setColor();
-		ctx.broadcastCardEffect();
 		ctx.forceDraw(2);
 		ctx.skipNextPlayer();
 	}
