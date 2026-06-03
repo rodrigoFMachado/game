@@ -2,8 +2,8 @@ package uno.engine;
 
 import java.util.ArrayList;
 import java.util.List;
-import uno.model.*;
 import uno.api.GameObserver;
+import uno.model.*;
 
 public class GameContext {
 
@@ -213,6 +213,11 @@ public class GameContext {
     // --- APIs para os Efeitos das Cartas usarem ---
     public void reverseDirection() {
         this.isClockwise = !this.isClockwise;
+
+        // Em jogos com 2 jogadores, inverter a direção também salta o próximo jogador
+        if (players.size() == 2) {
+            skipNextPlayer();
+        }
     }
 
     public void skipNextPlayer() {
