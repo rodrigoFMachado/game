@@ -87,25 +87,42 @@ public class GameContext {
         broadcast(message);
     }
 
-    // --- Os métodos originais do teu UML ---
     public void playCard(int playerId, int cardIndex) {
-        if (playerId != currentPlayerIndex) {
-            throw new IllegalStateException("It's not player " + playerId + "'s turn.");
-        }
         Player currentPlayer = players.get(currentPlayerIndex);
 
+        // 1. Validações de Erro Fatal (se algo falhar aqui, o programa vai parar)
+        if (playerId != currentPlayer.getId()) {
+            throw new IllegalArgumentException("Not player " + playerId + " turn");
+        }
+        
+        if (cardIndex < 0 || cardIndex >= currentPlayer.getHand().getSize()) {
+            throw new IllegalArgumentException("Invalid card index " + cardIndex);
+        }
+
+        // Ler a carta
         Card currentCard = currentPlayer.getHand().getCard(cardIndex);
 
-        if (currentCard.getRank() == Wild)
+        // [DESAFIO PARA TI]: Fazer o IF para verificar se a jogada é ilegal (cor errada ou rank errado).
+        // Se for ilegal, deves fazer: throw new IllegalArgumentException("Card " + currentCard.getColor() + "-" + currentCard.getRank() + " is not playable");
 
-
-            broadcast("PLAY_CARD Player playerid played Wild (color will be chosen)");
-
-        else if (currentCard.getColor() == currentColor || currentCard.getRank() == discardPile.getTop)
-            currentPlayerIndex++;
-            currentColor = currentCard.getColor();
-            discardPile.addTop(currentCard);
-
+        // 2. Executar a jogada fisicamente na memória
+        currentPlayer.getHand().removeCard(cardIndex); // Tira a carta da mão
+        discardPile.addTop(currentCard);               // Mete a carta na mesa
+        currentCard.getEffect().execute(this);         // O Chip de lógica executa os Skips/Reverses invisivelmente
+        
+        // 3. Atualizar o estado e imprimir o Output dependendo da carta
+        if (currentCard.getRank() == Rank.WILD || currentCard.getRank() == Rank.WILD_DRAW_FOUR) {
+            // É um Wild. Não mudamos a cor ainda, só informamos.
+            broadcast("EVENT PLAY_CARD Player " + playerId + " played " + currentCard.getRank() + " (color will be chosen)");
+            
+            // DICA: Vais precisar de uma variável de classe (ex: private boolean isWaitingForColor)
+            // e metê-la a 'true' aqui, para bloqueares o advanceTurn() e o drawCard() até vir o comando COLOR.
+            
+        } else {
+            // Carta normal. Atualizamos a cor da mesa para a cor da carta.
+            this.currentColor = currentCard.getColor();
+            broadcast("EVENT PLAY_CARD Player " + playerId + " played " + currentCard.getColor() + "-" + currentCard.getRank());
+        }
     }
 
     public void chooseColor(int playerId, String colorCode) {
