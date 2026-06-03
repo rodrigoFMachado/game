@@ -120,19 +120,6 @@ public class GameContext {
 
 
         currentCard.getEffect().execute(this);    // Chamado efeito da carta
-        
-        // 3. Atualizar o estado e imprimir o Output dependendo da carta
-        if (currentCard.getRank() == Rank.WILD || currentCard.getRank() == Rank.WILD_DRAW_FOUR) {
-            // É um Wild. Não mudamos a cor ainda, só informamos.
-            broadcast("EVENT PLAY_CARD Player " + playerId + " played " + currentCard.getRank() + " (color will be chosen)");
-            
-            isWaitingForColor = true;
-            
-        } else {
-            // Carta normal. Atualizamos a cor da mesa para a cor da carta.
-            this.currentColor = currentCard.getColor();
-            broadcast("EVENT PLAY_CARD Player " + playerId + " played " + currentCard.getColor() + "-" + currentCard.getRank());
-        }
     }
 
     public void chooseColor(int playerId, String colorCode) {
@@ -282,6 +269,8 @@ public class GameContext {
     }
 
 
-
+    public void waitForColor() {
+        this.isWaitingForColor = true;
+    }
 
 }
