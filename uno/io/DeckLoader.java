@@ -77,7 +77,7 @@ public class DeckLoader {
      * @param c
      * @return
      */
-    private Color parseColor(String c) {
+    protected Color parseColor(String c) {
         switch (c.toUpperCase()) {
             case "R": return Color.RED;
             case "Y": return Color.YELLOW;
@@ -94,7 +94,7 @@ public class DeckLoader {
      * @param r
      * @return
      */
-    private Rank parseRank(String r) {
+    protected Rank parseRank(String r) {
         switch (r.toUpperCase()) {
             case "0": return Rank.ZERO;
             case "1": return Rank.ONE;
@@ -115,7 +115,7 @@ public class DeckLoader {
         }
     }
 
-    private CardEffect assignEffect(Rank rank) {
+    protected CardEffect assignEffect(Rank rank) {
         // Strategy Pattern applied: Assigning the logic block based on the rank
         switch (rank) {
             case SKIP: return new SkipEffect();
