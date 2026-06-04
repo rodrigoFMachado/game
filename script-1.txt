@@ -1,0 +1,15 @@
+# Player 0 atira o +4 e o alvo é o Player 1
+PLAYER 0 PLAY 0
+PLAYER 0 COLOR B
+
+# O Player 1 perdeu a vez e comprou 4 cartas. O turno é do Player 2
+# Player 2 joga um Azul-8 (porque a cor escolhida pelo P0 foi Azul)
+PLAYER 2 PLAY 3
+
+# Turno volta ao Player 0. Ele não tem Azul, por isso compra.
+PLAYER 0 DRAW
+
+# Turno do Player 1. Chegou a hora da vingança, atira +4 contra o Player 2.
+# Nota: a carta dele está na posição 1 da mão original.
+PLAYER 1 PLAY 1
+PLAYER 1 COLOR Y

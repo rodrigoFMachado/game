@@ -14,8 +14,9 @@ public class GameContext {
     private int currentPlayerIndex;
     private boolean isClockwise;
     private boolean isWaitingForColor;
+    private int skips = 0; // nao usado antes, vai dar jeito para crazy ruleset
     
-    // Lista de monitores ligados a este CPU
+    // Lista de monitores ligados a este 
     private List<GameObserver> observers;
 
     /**
@@ -80,8 +81,6 @@ public class GameContext {
         }
         broadcast("EVENT TURN_START player=" + currentPlayerIndex);
     }
-
-
 
 
 
@@ -223,19 +222,27 @@ public class GameContext {
     }
 
     public void advanceTurn() {
+        // Se estivermos à espera da cor, o turno congela
         if (isWaitingForColor) {
             return;
         }
 
-        if (isClockwise) {
-            currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
-        } else {
-            currentPlayerIndex = (currentPlayerIndex - 1 + players.size()) % players.size();
+        // 1 passo normal + acumulados
+        int step = 1 + this.skips;
+        int direction = isClockwise ? 1 : -1;
+        int numPlayers = players.size();
+
+        currentPlayerIndex = (currentPlayerIndex + (direction * step)) % numPlayers;
+        
+        if (currentPlayerIndex < 0) {
+            currentPlayerIndex += numPlayers;
         }
+
+        // O turno rodou, limpamos os saltos para a próxima pessoa!
+        this.skips = 0; 
 
         broadcast("EVENT TURN_ADVANCE Next player: " + currentPlayerIndex);
     }
-
 
 
     // --- APIs para os Efeitos das Cartas usarem ---
@@ -270,18 +277,15 @@ public class GameContext {
     public void reverseDirection() {
         this.isClockwise = !this.isClockwise;
 
-        // Em jogos com 2 jogadores, inverter a direção também salta o próximo jogador
+        // Num jogo de 2 pessoas, o Reverse funciona como um Skip
         if (players.size() == 2) {
-            skipNextPlayer();
+            skipNextPlayer(); 
         }
     }
 
     public void skipNextPlayer() {
-        if (isClockwise) {
-            currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
-        } else {
-            currentPlayerIndex = (currentPlayerIndex - 1 + players.size()) % players.size();
-        }
+        // Apenas acumula o salto! Não mexe em quem está a jogar agora.
+        this.skips++; 
     }
 
     public void forceDraw(int numCards) {
