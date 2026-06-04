@@ -5,10 +5,10 @@ import uno.api.*;
 public class EventLogger implements GameObserver {
 
 	/**
-	 * * @param message
+	 * Logs an event to the console.
+	 * @param message The message to log.
 	 */
 	public void logEvent(String message) {
-		// Imprime os eventos enviados pelo CPU diretamente para o terminal
-		System.out.println(message);
+		System.out.println(message); // Só isto!
 	}
 }
