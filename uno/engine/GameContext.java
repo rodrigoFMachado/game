@@ -149,7 +149,14 @@ public class GameContext {
         }
 
         // 4. Executar o efeito da carta (Vai forçar compras e rodar os turnos conforme programaste)
-        currentCard.getEffect().execute(this);    
+        currentCard.getEffect().execute(this);
+
+        if (currentPlayer.getHand().getSize() == 0) {
+            broadcast("EVENT GAME_END Player " + playerId + " wins");
+            broadcast("EVENT WINNER player=" + playerId);
+            broadcast("GAME_END");
+            System.exit(0);
+        }
     }
 
     public void chooseColor(int playerId, String colorCode) {
