@@ -7,18 +7,17 @@ import uno.model.*;
 
 public class GameContext {
 
-    private List<Player> players;
-    private Deck drawPile;
-    private Deck discardPile;
-    private Color currentColor;
-    private int currentPlayerIndex;
-    private boolean isClockwise;
-    private boolean isWaitingForColor;
-    private int skips = 0; // nao usado antes, vai dar jeito para crazy ruleset
+    // 1. ATRIBUTOS PROTECTED PARA A FASE 2 PODER LER E MEXER
+    protected List<Player> players;
+    protected Deck drawPile;
+    protected Deck discardPile;
+    protected Color currentColor;
+    protected int currentPlayerIndex;
+    protected boolean isClockwise;
+    protected boolean isWaitingForColor;
+    protected int skips = 0;    
     
-    // Lista de monitores ligados a este 
-    private List<GameObserver> observers;
-
+    protected List<GameObserver> observers; 
     /**
      * Creates a new GameContext with the specified number of players and the loaded deck.
      * @param numPlayers the number of players
@@ -42,7 +41,8 @@ public class GameContext {
         this.observers.add(obs);
     }
 
-    private void broadcast(String message) {
+    // 2. MÉTODO PROTECTED PARA A FASE 2 CONSEGUIR IMPRIMIR NO ECRÃ
+    protected void broadcast(String message) {
         for (GameObserver obs : observers) {
             obs.logEvent(message);
         }
