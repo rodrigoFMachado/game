@@ -32,4 +32,11 @@ public class Card {
 	public CardEffect getEffect() { 
 		return this.effect; 
 	}
+
+	
+    @Override
+    public String toString() {
+        return this.color.getCode() + "-" + this.rank.toString();
+    }
+
 }

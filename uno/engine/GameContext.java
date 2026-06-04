@@ -66,14 +66,15 @@ public class GameContext {
         }
 
         // Output idêntico à Secção 1.4.2 do PDF
-        broadcast("GAME START players=" + players.size());
-        broadcast("EVENT TOP_CARD " + initialDiscard.getColor() + "-" + initialDiscard.getRank() + " color=" + currentColor);
+        broadcast("GAME_START players=" + players.size()); 
+        broadcast("EVENT TOP_CARD " + initialDiscard.toString() + " color=" + currentColor);
         
         for (Player p : players) {
             StringBuilder handStr = new StringBuilder("EVENT HAND player=" + p.getId() + " cards=");
             for (int i = 0; i < p.getHand().getSize(); i++) {
                 Card c = p.getHand().getCard(i);
-                handStr.append(c.getColor()).append("-").append(c.getRank()).append(" ");
+                // Muito mais limpo agora!
+                handStr.append(c.toString()).append(" "); 
             }
             broadcast(handStr.toString().trim());
         }
@@ -108,7 +109,7 @@ public class GameContext {
 
         // Move ilegal
         if (currentCard.getColor() != this.currentColor && currentCard.getRank() != discardPile.peekTop().getRank() && currentCard.getColor() != Color.WILD) { 
-            throw new IllegalArgumentException("Card " + currentCard.getColor() + "-" + currentCard.getRank() + " is not playable");
+            throw new IllegalArgumentException("Card " + currentCard.toString() + " is not playable");
         }
 
         // 2. Tira a carta da mão e mete na mesa
@@ -144,7 +145,7 @@ public class GameContext {
                 break;
             default:
                 this.currentColor = currentCard.getColor();
-                broadcast(baseLog + currentCard.getColor() + "-" + currentCard.getRank());
+                broadcast(baseLog + currentCard.toString());
                 break;
         }
 
@@ -217,7 +218,8 @@ public class GameContext {
         // 3. Atualizar a memória e avisar o ecrã
         currentPlayer.getHand().addCard(drawnCard);
         
-        broadcast("EVENT DRAW_CARD Player " + playerId + " draws 1 card (" + drawnCard.getColor() + "-" + drawnCard.getRank() + ")");
+        broadcast("EVENT DRAW_CARD Player " + playerId + " draws 1 card (" + drawnCard.toString() + ")");
+    
     }
 
     public void advanceTurn() {

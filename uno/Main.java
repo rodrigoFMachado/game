@@ -23,10 +23,11 @@ public class Main {
 
         // 2. Cabeçalho Inicial Obrigatório 
         System.out.println("Running uno.Main with:");
-        System.out.println("Deck file: " + deckFile);
-        System.out.println("Script file: " + scriptFile);
-        System.out.println("Nb players: " + playerCount);
-        System.out.println("Nb cards per player: " + cardsPerPlayer);
+        System.out.println("   Deckfile: " + deckFile);
+        System.out.println("   Script file: " + scriptFile);
+        System.out.println("   Nb players: " + playerCount);
+        System.out.println("   Nb cards per player: " + cardsPerPlayer);
+        System.out.println("");
 
         try (Reader deckReader = new FileReader(deckFile)) {
             

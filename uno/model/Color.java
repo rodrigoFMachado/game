@@ -1,12 +1,19 @@
 package uno.model;
 
-/**
- * Enum representing the color of a card in Uno.
- */
 public enum Color {
-	RED,
-	YELLOW,
-	GREEN,
-	BLUE,
-	WILD
+    RED("R"),
+    YELLOW("Y"),
+    GREEN("G"),
+    BLUE("B"),
+    WILD("W");
+
+    private final String code;
+
+    Color(String code) {
+        this.code = code;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
 }
