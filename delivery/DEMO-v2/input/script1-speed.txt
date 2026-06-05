@@ -1,0 +1,4 @@
+# P0 joga o DRAW_TWO. Como é SpeedRuleset, P1 só compra 1 carta e perde a vez!
+PLAYER 0 PLAY 0
+# Turno volta ao P0
+PLAYER 0 PLAY 0

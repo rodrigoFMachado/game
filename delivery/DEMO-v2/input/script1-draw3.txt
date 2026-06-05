@@ -1,0 +1,8 @@
+# Jogador 0 joga uma carta normal (R-1)
+PLAYER 0 PLAY 0
+# Jogador 1 nao tem vermelho, compra carta
+PLAYER 1 DRAW
+# Jogador 0 ataca com DRAW_THREE! Jogador 1 vai comer 3 cartas e perder a vez.
+PLAYER 0 PLAY 0
+# O turno volta ao Jogador 0 (porque o 1 foi saltado num jogo de 2 pessoas)
+PLAYER 0 PLAY 0

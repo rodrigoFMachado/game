@@ -1,0 +1,2 @@
+Main-Class: uno.v2.MainV2
+

@@ -1,6 +1,6 @@
 Running uno.Main with:
-   Deckfile: input/ex3-deck.txt
-   Script file: input/ex3-script.txt
+   Deckfile: DEMO-v1/input/ex3-deck.txt
+   Script file: DEMO-v1/input/ex3-script.txt
    Nb players: 4
    Nb cards per player: 7
 

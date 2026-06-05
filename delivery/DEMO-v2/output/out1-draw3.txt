@@ -1,0 +1,15 @@
+GAME_START players=2
+EVENT TOP_CARD R-5 color=RED
+EVENT HAND player=0 cards=R-1 R-DRAW_THREE G-1 G-3 G-5 G-7 G-9
+EVENT HAND player=1 cards=G-2 B-4 G-2 G-4 G-6 G-8 B-1
+EVENT TURN_START player=0
+EVENT COMMAND line="PLAYER 0 PLAY 0"
+EVENT PLAY_CARD Player 0 played R-1
+EVENT TURN_ADVANCE Next player: 1
+EVENT COMMAND line="PLAYER 1 DRAW"
+EVENT DRAW_CARD Player 1 draws 1 card (B-2)
+EVENT TURN_ADVANCE Next player: 0
+EVENT COMMAND line="PLAYER 0 PLAY 0"
+EVENT PLAY_CARD Player 0 played DRAW_THREE; Player 1 draws 3 and is skipped
+EVENT GAME_END No cards available to draw
+GAME_END
