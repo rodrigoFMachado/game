@@ -2,10 +2,18 @@ package uno.model;
 
 import uno.api.*;
 
+/**
+ * Represents a card in the Uno game, which has a color, rank, and effect.
+ */
 public class Card {
 
+	/** The color of the card. */
 	private Color color;
+
+	/** The rank of the card. */
 	private Rank rank;
+
+	/** The effect of the card, assigned by deckLoader*/
 	private CardEffect effect;
 
 
@@ -21,6 +29,7 @@ public class Card {
 		this.effect = effect;
 	}
 
+
 	public Color getColor() { 
 		return this.color; 
 	}
@@ -33,7 +42,11 @@ public class Card {
 		return this.effect; 
 	}
 
-	
+	/**
+	 * Returns a string representation of the card in the format "Color-Rank".
+	 * For example, a red 5 would be represented as "R-5".
+	 * @return a string representation of the card
+	 */
     @Override
     public String toString() {
         return this.color.getCode() + "-" + this.rank.toString();

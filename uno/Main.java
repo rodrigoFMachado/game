@@ -8,7 +8,15 @@ import uno.io.ScriptParser;
 import java.io.FileReader;
 import java.io.Reader;
 
+/** 
+ * Main class for running the Uno game.
+ */
 public class Main {
+
+    /**
+     * Main method to run the Uno game with the specified parameters.
+     * @param args the command-line arguments
+     */
     public static void main(String[] args) {
         // 1. Validação dos Argumentos da Linha de Comandos
         if (args.length < 3) {
@@ -38,7 +46,7 @@ public class Main {
             // 4. Chama construtor de game context com o deck carregado e o número de jogadores
             GameContext engine = new GameContext(playerCount, loadedDeck);
 
-            // 5. Ligar o monitor de saída (EventLogger) ao CPU
+            // 5. Ligar o monitor de saída (EventLogger) ao game context para registar os eventos do jogo
             EventLogger logger = new EventLogger();
             engine.addObserver(logger);
 

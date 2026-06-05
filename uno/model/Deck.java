@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Deck {
 
+	/** List of cards in the deck. The top card is the last element in the list. */
 	private List<Card> cards;
 
 	/**

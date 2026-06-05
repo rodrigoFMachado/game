@@ -5,14 +5,27 @@ import uno.model.Rank;
 import uno.api.CardEffect;
 import uno.engine.DrawTwoEffect; // caso nao esteja ativo o speed ruleset
 
+/* 
+ * Loader for creating decks with additional card types and effects.
+ */
 public class DeckLoaderV2 extends DeckLoader {
 
+    /** The active extension for the deck loader. */
     private String activeExtension;
 
+    /**
+     * Creates a new DeckLoaderV2 with the specified active extension.
+     * @param activeExtension
+     */
     public DeckLoaderV2(String activeExtension) {
         this.activeExtension = activeExtension;
     }
 
+    /**
+     * Parses a rank from a string representation.
+     * @param r the string representation of the rank
+     * @return the corresponding Rank enum value
+     */
     @Override
     protected Rank parseRank(String r) {
         // Se o texto for DRAW_THREE, este loader novo trata disso!
@@ -24,6 +37,11 @@ public class DeckLoaderV2 extends DeckLoader {
         return super.parseRank(r); 
     }
 
+    /**
+     * Assigns an effect to a card based on its rank.
+     * @param rank the rank of the card
+     * @return the corresponding card effect
+     */
     @Override
     protected CardEffect assignEffect(Rank rank) {
         // 1. Lógica do Novo Cartão (DRAW_THREE)

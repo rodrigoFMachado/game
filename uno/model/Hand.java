@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Hand {
 
+	/** List of cards in the hand. */
 	private List<Card> cards;
 	
 	/**
@@ -31,19 +32,12 @@ public class Hand {
 		return this.cards.remove(index);
 	}
 
-	/**
-	 * Gets a card from the player's hand.
-	 * @param index the index of the card to get
-	 * @return the card at the specified index
-	 */
+
 	public Card getCard(int index) {
 		return this.cards.get(index);
 	}
 
-	/**
-	 * Gets the number of cards in the player's hand.
-	 * @return the size of the hand
-	 */
+
 	public int getSize() {
 		return this.cards.size();
 	}

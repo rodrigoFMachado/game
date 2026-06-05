@@ -3,15 +3,28 @@ package uno.v2;
 import uno.engine.GameContext;
 import uno.model.*;
 
+/* 
+ * Game context for the enhanced Uno game with additional features.
+ */
 public class GameContextV2 extends GameContext {
 
+    /** The active extension for the game context. */
     private String activeExtension;
 
+    /** Creates a new GameContextV2 with the specified active extension.
+     * @param numPlayers the number of players in the game
+     * @param loadedDeck the deck of cards to use in the game
+     * @param activeExtension the name of the active extension to apply in this game context
+     */
     public GameContextV2(int numPlayers, Deck loadedDeck, String activeExtension) {
         super(numPlayers, loadedDeck);
         this.activeExtension = activeExtension;
     }
 
+    /** Overrides the playCard method to implement the enhanced rules for special cards and extensions. 
+     * @param playerId the ID of the player playing the card
+     * @param cardIndex the index of the card to play
+     */
     @Override
     public void playCard(int playerId, int cardIndex) {
         Player currentPlayer = players.get(currentPlayerIndex);

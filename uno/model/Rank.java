@@ -21,14 +21,17 @@ public enum Rank {
 	WILD("WILD"),
 	WILD_DRAW_FOUR("WILD_DRAW_FOUR");
 
+	/** The label for the rank. */
 	private final String label;
 
-	// Construtor do Enum
 	Rank(String label) {
 		this.label = label;
 	}
 
-	// Quando o programa tentar imprimir o Rank, usa a label (o número) em vez do nome da variável!
+	/**
+	 * Returns the label of the rank.
+	 * @return the label
+	 */
 	@Override
 	public String toString() {
 		return this.label;

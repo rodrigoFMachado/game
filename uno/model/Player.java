@@ -2,7 +2,10 @@ package uno.model;
 
 public class Player {
 
+	/** The player's unique ID. */
 	private int id;
+
+	/** The player's hand of cards. */
 	private Hand hand;
 
 	/**

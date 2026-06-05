@@ -6,7 +6,15 @@ import uno.model.*;
 import java.io.FileReader;
 import java.io.Reader;
 
+/* 
+ * Main class for running the enhanced Uno game.
+ */
 public class MainV2 {
+
+    /**
+     * Main method to run the Uno game with the specified parameters.
+     * @param args
+     */
     public static void main(String[] args) {
         if (args.length < 6 || !args[0].equals("-p2")) {
             System.err.println("Usage: java -cp ... uno.v2.MainV2 -p2 <type> <name> <deckFile> <scriptFile> <playerCount> [<cardsPerPlayer>]");

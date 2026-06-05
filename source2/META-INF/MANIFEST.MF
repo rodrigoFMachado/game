@@ -1,4 +1,0 @@
-Manifest-Version: 1.0
-Main-Class: uno.v2.MainV2
-Created-By: 25.0.3 (Red Hat, Inc.)
-

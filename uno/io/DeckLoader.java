@@ -11,8 +11,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * DeckLoader is responsible for reading a deck configuration from a text file and converting it into a Deck object that the game engine can use. It handles parsing each line of the file, translating color and rank codes into their corresponding enums, and assigning the correct effects to special cards. The loader also ensures that the order of cards in the file is preserved in the final deck, with the first line representing the bottom card and the last line representing the top card.
+ */
 public class DeckLoader {
 
+    /**
+     * Loads a deck from a given Reader, parsing each line according to the specified format and translating it into a Deck object. The method handles comments, empty lines, and validates the format of each card entry, throwing exceptions for any invalid lines. It also ensures that the order of cards is maintained as per the file's structure.
+     * @param reader
+     * @return
+     * @throws IOException
+     */
     public Deck loadDeck(Reader reader) throws IOException {
         BufferedReader br = new BufferedReader(reader);
         String line;
@@ -69,9 +78,8 @@ public class DeckLoader {
         return trimmed;
     }
 
+
     // --- Translators ---
-
-
     /**
      * Traduz cores de letras para enum, usando enum definida em model
      * @param c
@@ -115,6 +123,11 @@ public class DeckLoader {
         }
     }
 
+    /**
+     * Assigns the appropriate effect to a card based on its rank, to be later used by the game engine when the card is played. This method implements a simple strategy pattern, where the logic for determining the effect is encapsulated in one place, making it easier to manage and extend if new card types are added in the future.
+     * @param rank
+     * @return
+     */
     protected CardEffect assignEffect(Rank rank) {
         // Strategy Pattern applied: Assigning the logic block based on the rank
         switch (rank) {

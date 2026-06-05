@@ -7,19 +7,36 @@ import uno.model.*;
 
 public class GameContext {
 
-    // 1. ATRIBUTOS PROTECTED PARA A FASE 2 PODER LER E MEXER
+    /** The list of players in the game. */
     protected List<Player> players;
+
+    /** The draw pile of the game. */
     protected Deck drawPile;
+    
+    /** The discard pile of the game. */
     protected Deck discardPile;
+    
+    /** The current color of the game. */
     protected Color currentColor;
+    
+    /** The index of the current player. */
     protected int currentPlayerIndex;
+    
+    /** Indicates if the game is moving clockwise. */
     protected boolean isClockwise;
+    
+    /** Indicates if the game is waiting for a color choice. */
     protected boolean isWaitingForColor;
+    
+    /** The number of skips in the game. */
     protected int skips = 0;    
     
+    /** The list of observers for the game. */
     protected List<GameObserver> observers; 
+
+
     /**
-     * Creates a new GameContext with the specified number of players and the loaded deck.
+     * Constructor: Creates a new GameContext with the specified number of players and the loaded deck.
      * @param numPlayers the number of players
      * @param loadedDeck the loaded deck
      */
@@ -37,17 +54,29 @@ public class GameContext {
         this.observers = new ArrayList<>();
     }
 
+    /**
+     * Adds an observer to the game context.
+     * @param obs the observer to add
+     */
     public void addObserver(GameObserver obs) {
         this.observers.add(obs);
     }
 
-    // 2. MÉTODO PROTECTED PARA A FASE 2 CONSEGUIR IMPRIMIR NO ECRÃ
+
+    /**
+     * Broadcasts a message to all observers.
+     * @param message
+     */
     protected void broadcast(String message) {
         for (GameObserver obs : observers) {
             obs.logEvent(message);
         }
     }
 
+    /**
+     * Sets up the game by dealing cards to players and initializing the discard pile.
+     * @param cardsPerPlayer
+     */
     public void setupGame(int cardsPerPlayer) {
         Card initialDiscard = drawPile.drawTop();
         if (initialDiscard.getColor() == Color.WILD) {
@@ -78,10 +107,19 @@ public class GameContext {
         broadcast("EVENT TURN_START player=" + currentPlayerIndex);
     }
 
+    /**
+     * Logs a command message to all observers.
+     * @param message
+     */
     public void logCommand(String message) {
         broadcast(message);
     }
 
+    /**
+     * Processes a player's action to play a card, including validation and effect execution.
+     * @param playerId
+     * @param cardIndex
+     */
     public void playCard(int playerId, int cardIndex) {
         Player currentPlayer = players.get(currentPlayerIndex);
 
@@ -144,6 +182,11 @@ public class GameContext {
         }
     }
 
+    /**
+     * Processes a player's action to choose a color after playing a wild card, including validation and state updates.
+     * @param playerId
+     * @param colorCode
+     */
     public void chooseColor(int playerId, String colorCode) {
         Player currentPlayer = players.get(currentPlayerIndex);
 
@@ -170,6 +213,10 @@ public class GameContext {
         broadcast("EVENT CHOOSE_COLOR Player " + playerId + " chose color " + this.currentColor);
     }
 
+    /**
+     * Processes a player's action to draw a card, including validation and state updates.
+     * @param playerId
+     */
     public void drawCard(int playerId) {
         Player currentPlayer = players.get(currentPlayerIndex);
 
@@ -192,6 +239,9 @@ public class GameContext {
         broadcast("EVENT DRAW_CARD Player " + playerId + " draws 1 card (" + drawnCard.toString() + ")");
     }
 
+    /**
+     * Public execution method called on by the concrete strategy. Advances the turn to the next player, including handling skips and direction changes.
+     */
     public void advanceTurn() {
         if (isWaitingForColor) {
             return;
@@ -211,6 +261,7 @@ public class GameContext {
         broadcast("EVENT TURN_ADVANCE Next player: " + currentPlayerIndex);
     }
 
+    /** Public execution method called on by the concrete strategy to reverse the direction of play */
     public void reverseDirection() {
         this.isClockwise = !this.isClockwise;
         if (players.size() == 2) {
@@ -218,10 +269,12 @@ public class GameContext {
         }
     }
 
+    /** Public execution method called on by the concrete strategy to skip the next player */
     public void skipNextPlayer() {
         this.skips++; 
     }
 
+    /** Public execution method called on by the concrete strategy to force a player to draw cards */
     public void forceDraw(int numCards) {
         int targetPlayerIndex;
         if (isClockwise) {
@@ -243,6 +296,7 @@ public class GameContext {
         }
     }
 
+    /** Public execution method called on by wild cards to wait for a color choice */
     public void waitForColor() {
         this.isWaitingForColor = true;
     }
