@@ -1,0 +1,44 @@
+Running uno.Main with:
+   Deckfile: DEMO-v2/input/deck5-draw3.txt
+   Script file: DEMO-v2/input/script5-draw3.txt
+   Nb players: 4
+   Nb cards per player: 3
+
+GAME_START players=4
+EVENT TOP_CARD B-5 color=BLUE
+EVENT HAND player=0 cards=B-1 B-3 R-4
+EVENT HAND player=1 cards=B-2 G-5 W-WILD
+EVENT HAND player=2 cards=B-DRAW_THREE G-2 Y-1
+EVENT HAND player=3 cards=B-SKIP G-3 Y-2
+EVENT TURN_START player=0
+EVENT COMMAND line="PLAYER 0 PLAY 0"
+EVENT PLAY_CARD Player 0 played B-1
+EVENT TURN_ADVANCE Next player: 1
+EVENT COMMAND line="PLAYER 1 PLAY 0"
+EVENT PLAY_CARD Player 1 played B-2
+EVENT TURN_ADVANCE Next player: 2
+EVENT COMMAND line="PLAYER 2 PLAY 0"
+EVENT PLAY_CARD Player 2 played DRAW_THREE; Player 3 draws 3 and is skipped
+EVENT TURN_ADVANCE Next player: 0
+EVENT COMMAND line="PLAYER 0 PLAY 0"
+EVENT PLAY_CARD Player 0 played B-3
+EVENT TURN_ADVANCE Next player: 1
+EVENT COMMAND line="PLAYER 1 PLAY 1"
+EVENT PLAY_CARD Player 1 played WILD (color will be chosen)
+EVENT COMMAND line="PLAYER 1 COLOR G"
+EVENT CHOOSE_COLOR Player 1 chose color GREEN
+EVENT TURN_ADVANCE Next player: 2
+EVENT COMMAND line="PLAYER 2 PLAY 0"
+EVENT PLAY_CARD Player 2 played G-2
+EVENT TURN_ADVANCE Next player: 3
+EVENT COMMAND line="PLAYER 3 PLAY 1"
+EVENT PLAY_CARD Player 3 played G-3
+EVENT TURN_ADVANCE Next player: 0
+EVENT COMMAND line="PLAYER 0 DRAW"
+EVENT DRAW_CARD Player 0 draws 1 card (G-1)
+EVENT TURN_ADVANCE Next player: 1
+EVENT COMMAND line="PLAYER 1 PLAY 0"
+EVENT PLAY_CARD Player 1 played G-5
+EVENT GAME_END Player 1 wins
+EVENT WINNER player=1
+GAME_END

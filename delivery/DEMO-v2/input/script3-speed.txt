@@ -1,0 +1,12 @@
+# P0 joga SKIP. P1 (vencedor) e saltado intencionalmente para poupar jogadas.
+PLAYER 0 PLAY 0
+PLAYER 2 PLAY 0
+PLAYER 0 DRAW
+# P1 joga DRAW_TWO. P2 compra APENAS 1 carta e perde a vez (SpeedRuleset).
+PLAYER 1 PLAY 0
+PLAYER 0 DRAW
+PLAYER 1 PLAY 0
+PLAYER 2 DRAW
+PLAYER 0 DRAW
+# P1 joga a ultima carta e o jogo acaba, P1 vence!
+PLAYER 1 PLAY 0

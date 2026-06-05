@@ -1,0 +1,8 @@
+# P0 joga DRAW_TWO. P1 compra 1 carta e perde a vez.
+PLAYER 0 PLAY 0
+PLAYER 2 PLAY 0
+# P0 atira SEGUNDO DRAW_TWO. P1 compra 1 carta outra vez.
+PLAYER 0 PLAY 0
+PLAYER 2 DRAW
+# P0 joga a ultima carta e o jogo acaba, P0 vence!
+PLAYER 0 PLAY 0

@@ -1,0 +1,15 @@
+# P0 joga SKIP. P1 perde a vez.
+PLAYER 0 PLAY 0
+# P2 joga DRAW_THREE. P0 compra 3 cartas e perde a vez.
+PLAYER 2 PLAY 0
+# P1 joga Y-1
+PLAYER 1 PLAY 0
+# P2 joga Y-8
+PLAYER 2 PLAY 0
+# P0 joga WILD e muda a cor para Amarelo
+PLAYER 0 PLAY 0
+PLAYER 0 COLOR Y
+# P1 joga Y-2
+PLAYER 1 PLAY 0
+# P2 joga a sua ultima carta (Y-9) e o jogo acaba, P2 vence!
+PLAYER 2 PLAY 0

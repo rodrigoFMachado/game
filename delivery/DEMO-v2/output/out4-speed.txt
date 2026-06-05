@@ -1,0 +1,29 @@
+Running uno.Main with:
+   Deckfile: DEMO-v2/input/deck4-speed.txt
+   Script file: DEMO-v2/input/script4-speed.txt
+   Nb players: 3
+   Nb cards per player: 3
+
+GAME_START players=3
+EVENT TOP_CARD B-0 color=BLUE
+EVENT HAND player=0 cards=B-DRAW_TWO B-DRAW_TWO B-3
+EVENT HAND player=1 cards=B-1 Y-1 Y-3
+EVENT HAND player=2 cards=B-2 Y-2 Y-4
+EVENT TURN_START player=0
+EVENT COMMAND line="PLAYER 0 PLAY 0"
+EVENT PLAY_CARD Player 0 played DRAW_TWO; Player 1 draws 1 and is skipped
+EVENT TURN_ADVANCE Next player: 2
+EVENT COMMAND line="PLAYER 2 PLAY 0"
+EVENT PLAY_CARD Player 2 played B-2
+EVENT TURN_ADVANCE Next player: 0
+EVENT COMMAND line="PLAYER 0 PLAY 0"
+EVENT PLAY_CARD Player 0 played DRAW_TWO; Player 1 draws 1 and is skipped
+EVENT TURN_ADVANCE Next player: 2
+EVENT COMMAND line="PLAYER 2 DRAW"
+EVENT DRAW_CARD Player 2 draws 1 card (R-3)
+EVENT TURN_ADVANCE Next player: 0
+EVENT COMMAND line="PLAYER 0 PLAY 0"
+EVENT PLAY_CARD Player 0 played B-3
+EVENT GAME_END Player 0 wins
+EVENT WINNER player=0
+GAME_END

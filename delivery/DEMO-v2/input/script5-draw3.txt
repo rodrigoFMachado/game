@@ -1,0 +1,15 @@
+PLAYER 0 PLAY 0
+PLAYER 1 PLAY 0
+# P2 joga DRAW_THREE. P3 compra 3 cartas e perde a vez.
+PLAYER 2 PLAY 0
+PLAYER 0 PLAY 0
+# P1 joga WILD (na posicao 1 da mao) e muda cor para Verde
+PLAYER 1 PLAY 1
+PLAYER 1 COLOR G
+PLAYER 2 PLAY 0
+# P3 joga G-3 (na posicao 1, pois o B-SKIP e ilegal)
+PLAYER 3 PLAY 1
+# P0 nao tem Verde. Tem de comprar carta!
+PLAYER 0 DRAW
+# P1 joga a sua ultima carta (G-5) e o jogo acaba, P1 vence!
+PLAYER 1 PLAY 0

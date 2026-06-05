@@ -1,0 +1,12 @@
+# P0 joga DRAW_TWO. P1 compra APENAS 1 carta e perde a vez (SpeedRuleset ativo).
+PLAYER 0 PLAY 0
+PLAYER 2 PLAY 0
+PLAYER 0 DRAW
+PLAYER 1 PLAY 0
+# P2 joga WILD e muda cor para Vermelho
+PLAYER 2 PLAY 0
+PLAYER 2 COLOR R
+PLAYER 0 DRAW
+PLAYER 1 DRAW
+# P2 joga a ultima carta e o jogo acaba, P2 vence!
+PLAYER 2 PLAY 0

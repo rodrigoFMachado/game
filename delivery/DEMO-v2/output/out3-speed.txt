@@ -1,0 +1,41 @@
+Running uno.Main with:
+   Deckfile: DEMO-v2/input/deck3-speed.txt
+   Script file: DEMO-v2/input/script3-speed.txt
+   Nb players: 3
+   Nb cards per player: 3
+
+GAME_START players=3
+EVENT TOP_CARD R-5 color=RED
+EVENT HAND player=0 cards=R-SKIP B-1 B-3
+EVENT HAND player=1 cards=R-DRAW_TWO R-2 R-3
+EVENT HAND player=2 cards=R-1 B-2 B-4
+EVENT TURN_START player=0
+EVENT COMMAND line="PLAYER 0 PLAY 0"
+EVENT PLAY_CARD Player 0 played SKIP
+EVENT TURN_ADVANCE Next player: 2
+EVENT COMMAND line="PLAYER 2 PLAY 0"
+EVENT PLAY_CARD Player 2 played R-1
+EVENT TURN_ADVANCE Next player: 0
+EVENT COMMAND line="PLAYER 0 DRAW"
+EVENT DRAW_CARD Player 0 draws 1 card (Y-1)
+EVENT TURN_ADVANCE Next player: 1
+EVENT COMMAND line="PLAYER 1 PLAY 0"
+EVENT PLAY_CARD Player 1 played DRAW_TWO; Player 2 draws 1 and is skipped
+EVENT TURN_ADVANCE Next player: 0
+EVENT COMMAND line="PLAYER 0 DRAW"
+EVENT DRAW_CARD Player 0 draws 1 card (Y-3)
+EVENT TURN_ADVANCE Next player: 1
+EVENT COMMAND line="PLAYER 1 PLAY 0"
+EVENT PLAY_CARD Player 1 played R-2
+EVENT TURN_ADVANCE Next player: 2
+EVENT COMMAND line="PLAYER 2 DRAW"
+EVENT DRAW_CARD Player 2 draws 1 card (Y-4)
+EVENT TURN_ADVANCE Next player: 0
+EVENT COMMAND line="PLAYER 0 DRAW"
+EVENT DRAW_CARD Player 0 draws 1 card (Y-5)
+EVENT TURN_ADVANCE Next player: 1
+EVENT COMMAND line="PLAYER 1 PLAY 0"
+EVENT PLAY_CARD Player 1 played R-3
+EVENT GAME_END Player 1 wins
+EVENT WINNER player=1
+GAME_END

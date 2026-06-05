@@ -1,4 +1,9 @@
-# P0 joga o DRAW_TWO. Como é SpeedRuleset, P1 só compra 1 carta e perde a vez!
+# P0 joga DRAW_TWO. SpeedRuleset ativo: P1 compra APENAS 1 carta e perde a vez!
 PLAYER 0 PLAY 0
-# Turno volta ao P0
+# P0 joga WILD e muda para Vermelho
+PLAYER 0 PLAY 0
+PLAYER 0 COLOR R
+# P1 compra carta
+PLAYER 1 DRAW
+# P0 joga a ultima carta e o jogo acaba, P0 vence!
 PLAYER 0 PLAY 0

@@ -1,0 +1,12 @@
+# P0 joga DRAW_THREE. P1 compra 3 cartas e perde a vez.
+PLAYER 0 PLAY 0
+# P2 joga R-8
+PLAYER 2 PLAY 0
+# P0 joga R-1
+PLAYER 0 PLAY 0
+# P1 joga R-9
+PLAYER 1 PLAY 0
+# P2 nao tem Vermelho, compra carta.
+PLAYER 2 DRAW
+# P0 joga a ultima carta e o jogo acaba, P0 vence!
+PLAYER 0 PLAY 0

@@ -9,7 +9,7 @@ import java.io.Reader;
 public class MainV2 {
     public static void main(String[] args) {
         if (args.length < 6 || !args[0].equals("-p2")) {
-            System.err.println("Usage: java -cp ... uno.v2.MainV2 -p2 <type> <name> <deckFile> <scriptFile> <playerCount>");
+            System.err.println("Usage: java -cp ... uno.v2.MainV2 -p2 <type> <name> <deckFile> <scriptFile> <playerCount> [<cardsPerPlayer>]");
             System.exit(1);
         }
 
@@ -17,6 +17,16 @@ public class MainV2 {
         String deckFile = args[3];
         String scriptFile = args[4];
         int playerCount = Integer.parseInt(args[5]);
+        int cardsPerPlayer = args.length > 6 ? Integer.parseInt(args[6]) : 7;
+
+
+        // 2. Cabeçalho Inicial Obrigatório 
+        System.out.println("Running uno.Main with:");
+        System.out.println("   Deckfile: " + deckFile);
+        System.out.println("   Script file: " + scriptFile);
+        System.out.println("   Nb players: " + playerCount);
+        System.out.println("   Nb cards per player: " + cardsPerPlayer);
+        System.out.println("");
 
         try (Reader deckReader = new FileReader(deckFile)) {
             
@@ -25,10 +35,10 @@ public class MainV2 {
 
             GameContextV2 engine = new GameContextV2(playerCount, loadedDeck, extensionName);
             engine.addObserver(new EventLogger());
-            engine.setupGame(7);
+            engine.setupGame(cardsPerPlayer);
 
             try (Reader scriptReader = new FileReader(scriptFile);
-                 ScriptParser parser = new ScriptParser(scriptReader, engine)) {
+                ScriptParser parser = new ScriptParser(scriptReader, engine)) {
                 parser.parseAll();
             }
         } catch (Exception e) {

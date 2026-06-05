@@ -1,0 +1,17 @@
+Y-5
+Y-SKIP
+Y-1
+Y-DRAW_THREE
+W-WILD
+Y-2
+Y-8
+B-2
+Y-3
+Y-9
+R-1
+R-2
+R-3
+G-1
+G-2
+G-3
+G-4

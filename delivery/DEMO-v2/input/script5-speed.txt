@@ -1,0 +1,19 @@
+# P0 joga DRAW_TWO. P1 compra 1 carta (SpeedRuleset) e e saltado.
+PLAYER 0 PLAY 0
+# P2 joga SKIP. P3 (vencedor) e saltado!
+PLAYER 2 PLAY 0
+PLAYER 0 DRAW
+PLAYER 1 PLAY 0
+PLAYER 2 DRAW
+# P3 joga WILD e escolhe Amarelo
+PLAYER 3 PLAY 2
+PLAYER 3 COLOR Y
+PLAYER 0 PLAY 0
+PLAYER 1 PLAY 0
+PLAYER 2 PLAY 0
+PLAYER 3 PLAY 0
+PLAYER 0 PLAY 0
+PLAYER 1 PLAY 0
+PLAYER 2 PLAY 0
+# P3 joga a ultima carta e o jogo acaba, P3 vence!
+PLAYER 3 PLAY 0

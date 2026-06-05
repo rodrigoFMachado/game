@@ -1,8 +1,9 @@
-# Jogador 0 joga uma carta normal (R-1)
+# P0 joga DRAW_THREE. P1 compra 3 e e saltado (Num jogo de 2 pessoas, o turno volta ao P0!)
 PLAYER 0 PLAY 0
-# Jogador 1 nao tem vermelho, compra carta
-PLAYER 1 DRAW
-# Jogador 0 ataca com DRAW_THREE! Jogador 1 vai comer 3 cartas e perder a vez.
-PLAYER 0 PLAY 0
-# O turno volta ao Jogador 0 (porque o 1 foi saltado num jogo de 2 pessoas)
+# P0 joga WILD e escolhe Azul. O turno passa para o P1.
+PLAYER 0 PLAY 1
+PLAYER 0 COLOR B
+# P1 joga a carta Azul que tinha na mao
+PLAYER 1 PLAY 1
+# P0 joga a ultima carta e o jogo acaba, P0 vence!
 PLAYER 0 PLAY 0

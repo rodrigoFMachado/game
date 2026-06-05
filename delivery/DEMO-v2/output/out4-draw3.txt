@@ -1,0 +1,37 @@
+Running uno.Main with:
+   Deckfile: DEMO-v2/input/deck4-draw3.txt
+   Script file: DEMO-v2/input/script4-draw3.txt
+   Nb players: 3
+   Nb cards per player: 3
+
+GAME_START players=3
+EVENT TOP_CARD Y-5 color=YELLOW
+EVENT HAND player=0 cards=Y-SKIP W-WILD B-2
+EVENT HAND player=1 cards=Y-1 Y-2 Y-3
+EVENT HAND player=2 cards=Y-DRAW_THREE Y-8 Y-9
+EVENT TURN_START player=0
+EVENT COMMAND line="PLAYER 0 PLAY 0"
+EVENT PLAY_CARD Player 0 played SKIP
+EVENT TURN_ADVANCE Next player: 2
+EVENT COMMAND line="PLAYER 2 PLAY 0"
+EVENT PLAY_CARD Player 2 played DRAW_THREE; Player 0 draws 3 and is skipped
+EVENT TURN_ADVANCE Next player: 1
+EVENT COMMAND line="PLAYER 1 PLAY 0"
+EVENT PLAY_CARD Player 1 played Y-1
+EVENT TURN_ADVANCE Next player: 2
+EVENT COMMAND line="PLAYER 2 PLAY 0"
+EVENT PLAY_CARD Player 2 played Y-8
+EVENT TURN_ADVANCE Next player: 0
+EVENT COMMAND line="PLAYER 0 PLAY 0"
+EVENT PLAY_CARD Player 0 played WILD (color will be chosen)
+EVENT COMMAND line="PLAYER 0 COLOR Y"
+EVENT CHOOSE_COLOR Player 0 chose color YELLOW
+EVENT TURN_ADVANCE Next player: 1
+EVENT COMMAND line="PLAYER 1 PLAY 0"
+EVENT PLAY_CARD Player 1 played Y-2
+EVENT TURN_ADVANCE Next player: 2
+EVENT COMMAND line="PLAYER 2 PLAY 0"
+EVENT PLAY_CARD Player 2 played Y-9
+EVENT GAME_END Player 2 wins
+EVENT WINNER player=2
+GAME_END

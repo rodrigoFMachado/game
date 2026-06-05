@@ -1,0 +1,21 @@
+# P0 joga SKIP. P1 (o planeado vencedor) e saltado para poupar 1 jogada!
+PLAYER 0 PLAY 0
+# P2 joga G-DRAW_THREE. P0 compra 3 e perde a vez!
+PLAYER 2 PLAY 0
+# P1 joga WILD e muda cor para Azul.
+PLAYER 1 PLAY 1
+PLAYER 1 COLOR B
+# P2 nao tem azul na mao, tem de comprar carta.
+PLAYER 2 DRAW
+# P0 joga B-2
+PLAYER 0 PLAY 0
+# P1 joga carta azul normal B-9
+PLAYER 1 PLAY 1
+# P2 joga a carta azul que tem B-9
+PLAYER 2 PLAY 2
+# P0 tem wild, joga, ainda tem cartas por causa do draw three W-WILD
+PLAYER 0 PLAY 0
+PLAYER 0 COLOR G
+# P1 joga verde G-1. era a ultima carta WIN
+PLAYER 1 PLAY 0
+ 
